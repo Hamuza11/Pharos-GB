@@ -105,6 +105,7 @@ folder. See /screencaps/README.md for more information.
 In no particular order, and a non-exhaustive list, the following projects use Peanut-GB.
 
 * [Pico-GB](https://github.com/YouMakeTech/Pico-GB) -  Game Boy emulation on the Raspberry Pi RP2040 microcontroller.
+* [ST7789 Pico-GB](examples/st7789_pico/) - Game Boy emulation on Raspberry Pi Pico with ST7789 display (240x240).
 * [Peanut_gb-RGFW](https://github.com/ColleagueRiley/Peanut_gb-RGFW) - A Gameboy emulator example for [RGFW](https://github.com/ColleagueRiley/RGFW).
 * [CPBoy](https://github.com/diddyholz/CPBoy) - A Game Boy emulator for the Classpad II (fx-CP400).
 * [PlayGB](https://github.com/risolvipro/PlayGB) - A Game Boy emulator for Playdate.

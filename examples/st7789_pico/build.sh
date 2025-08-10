@@ -1,9 +1,6 @@
 #!/bin/bash
 
 # Build script for ST7789 Pico-GB examples
-# Make sure PICO_SDK_PATH is set before running this script
-
-set -e
 
 echo "Building ST7789 Pico-GB examples..."
 
@@ -15,29 +12,30 @@ if [ -z "$PICO_SDK_PATH" ]; then
     exit 1
 fi
 
-echo "Using Pico SDK at: $PICO_SDK_PATH"
-
-# Build the test program
-echo "Building ST7789 test program..."
-mkdir -p build_test
-cd build_test
-cmake -f ../CMakeLists_test.txt ..
-make -j4
-cd ..
-
-# Build the main emulator program
-echo "Building ST7789 Pico-GB emulator..."
+# Build the main emulator
+echo "Building main emulator..."
 mkdir -p build_emulator
 cd build_emulator
-cmake -f ../CMakeLists.txt ..
+cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j4
 cd ..
 
-echo "Build completed successfully!"
+# Build the test program
+echo "Building test program..."
+mkdir -p build_test
+cd build_test
+cmake .. -f ../CMakeLists_test.txt -DCMAKE_BUILD_TYPE=Release
+make -j4
+cd ..
+
 echo ""
-echo "Output files:"
+echo "Build complete!"
+echo ""
+echo "Files created:"
+echo "  Main emulator: build_emulator/st7789_pico_gb.uf2"
 echo "  Test program: build_test/st7789_test.uf2"
-echo "  Emulator: build_emulator/st7789_pico_gb.uf2"
 echo ""
-echo "To test the display driver, copy st7789_test.uf2 to your Pico first."
-echo "To run the full emulator, copy st7789_pico_gb.uf2 to your Pico."
+echo "To test the display:"
+echo "  1. Copy st7789_test.uf2 to your Pico first"
+echo "  2. Check that the display shows test patterns"
+echo "  3. If working, copy st7789_pico_gb.uf2 for the full emulator"
