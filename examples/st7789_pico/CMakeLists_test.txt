@@ -1,0 +1,39 @@
+cmake_minimum_required(VERSION 3.13)
+
+# Initialize the SDK
+include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
+
+project(st7789_test C CXX ASM)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+
+# Initialize the Raspberry Pi Pico SDK
+pico_sdk_init()
+
+# Create the test executable
+add_executable(st7789_test
+    test_st7789.c
+    mk_st7789.c
+)
+
+# Enable USB output, disable UART output
+pico_enable_stdio_usb(st7789_test 1)
+pico_enable_stdio_uart(st7789_test 0)
+
+# Create map/bin/hex/uf2 files
+pico_add_extra_outputs(st7789_test)
+
+# Link libraries
+target_link_libraries(st7789_test
+    pico_stdlib
+    hardware_spi
+    hardware_gpio
+    hardware_clocks
+    hardware_timer
+    hardware_vreg
+)
+
+# Set include directories
+target_include_directories(st7789_test PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
